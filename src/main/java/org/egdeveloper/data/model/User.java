@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -58,7 +59,7 @@ public class User extends AbstractEntity implements Serializable {
 //    @CollectionTable(name = "security_tokens", joinColumns = @JoinColumn(name = "user_id"))
 //    @Column(name = "security_token")
     @JoinColumn(name = "user_id")
-    private Collection<SecurityToken> secTokens = new HashSet<>();
+    private Set<SecurityToken> secTokens = new HashSet<>();
 
     @Getter
     @Setter
@@ -69,14 +70,14 @@ public class User extends AbstractEntity implements Serializable {
 //    )
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private Collection<HealthStat> healthStat = new HashSet<>();
+    private Set<HealthStat> healthStat = new HashSet<>();
 
     @Getter
     @Setter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private Collection<Confident> confidents = new HashSet<>();
+    private Set<Confident> confidents = new HashSet<>();
 
     public void copyFrom(User another){
         name = another.name;

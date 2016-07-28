@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainWebController {
 
     @RequestMapping("/showHelpPage")
-    public String showHelpPage(@RequestParam Double lat, @RequestParam Double lng, @RequestParam Integer heartRate, ModelMap modelMap){
+    public String showHelpPage(@RequestParam String lat, @RequestParam String lng, @RequestParam Integer heartRate, ModelMap modelMap){
         modelMap.put("latitude", lat);
         modelMap.put("longitude", lng);
         modelMap.put("heartRate", heartRate);

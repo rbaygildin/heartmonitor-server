@@ -96,7 +96,10 @@ public class EmailSender implements IHealthAlarmSender{
                         h3("My heart rate is " + healthStat.getHeartRate() + "bpm."),
                         h3("You can find me at " + String.format("(%f, %f)", healthStat.getGpsPosition().getLatitude(), healthStat.getGpsPosition().getLongitude())),
 //                        iframe().withSrc(String.format("http://maps.google.com/maps/api/staticmap?center=%f,%f&zoom=12&size=400x400&sensor=false&key=%s", healthStat.getGpsPosition().getLatitude(), healthStat.getGpsPosition().getLongitude(), server_key)).attr("width", "100%").attr("height", "100%")
-                        a("address").withHref("")
+                        a("address").withHref(String.format("http://localhost:8080/showHelpPage?lat=%f&lng=%f&heartRate=%d",
+                                healthStat.getGpsPosition().getLatitude(),
+                                healthStat.getGpsPosition().getLongitude(),
+                                healthStat.getHeartRate()))
                 )
         ).render();
     }
