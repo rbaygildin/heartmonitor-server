@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Entity
+@Table(name = "user")
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class User extends AbstractEntity implements Serializable {
@@ -36,14 +37,28 @@ public class User extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
+    private boolean geolocEnabled;
+
+    @Getter
+    @Setter
+    private boolean medStatEnabled;
+
+    @Getter
+    @Setter
+    private Integer normalHeartRateMin;
+
+    @Getter
+    @Setter
+    private Integer normalHeartRateMax;
+
+    @Getter
+    @Setter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    @JoinTable(name = "user_healthSOS",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "healthSOS_id")
-//    )
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @CollectionTable(name = "security_tokens", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "security_token")
     @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private Collection<HealthSOS> healthSOS = new HashSet<>();
+    private Collection<SecurityToken> secTokens = new HashSet<>();
 
     @Getter
     @Setter
@@ -58,8 +73,19 @@ public class User extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private Collection<Confident> confidents = new HashSet<>();
+
+    public void copyFrom(User another){
+        name = another.name;
+        login = another.login;
+        password = another.password;
+        email = another.email;
+        geolocEnabled = another.geolocEnabled;
+        medStatEnabled = another.medStatEnabled;
+        normalHeartRateMin = another.normalHeartRateMin;
+        normalHeartRateMax = another.normalHeartRateMax;
+    }
 }
